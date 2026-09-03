@@ -71,14 +71,28 @@
 .clear-cloud.b{animation-duration:14s}
 @keyframes clearCloudDrift{to{transform:translateX(28px) scale(.92)}}
 
-/* Use the real uploaded plane asset instead of the temporary SVG */
+/* Use the real uploaded transparent plane asset — never render a card/panel behind it */
 .flight-plane{
-  width:108px;height:78px;
-  background:url("airplane-take-off-svgrepo-com.png") center/contain no-repeat;
+  width:108px;
+  height:78px;
+  padding:0!important;
+  margin:0;
+  border:0!important;
+  outline:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  background-color:transparent!important;
+  background-image:url("airplane-take-off-svgrepo-com.png")!important;
+  background-repeat:no-repeat!important;
+  background-position:center!important;
+  background-size:contain!important;
   animation:realPlaneJourney 13s cubic-bezier(.36,.03,.42,.98) infinite;
   transform-origin:50% 55%;
   filter:drop-shadow(0 12px 15px rgba(6,24,45,.20));
+  overflow:visible!important;
+  isolation:isolate;
 }
+.flight-plane::before{content:none!important;display:none!important;background:none!important;box-shadow:none!important;border:0!important}
 .flight-plane svg{display:none!important}
 .flight-plane::after{
   content:"";position:absolute;width:58px;height:2px;right:74%;top:63%;background:linear-gradient(90deg,transparent,rgba(20,92,255,.35));filter:blur(1px);opacity:0;animation:contrail 13s ease-in-out infinite;
