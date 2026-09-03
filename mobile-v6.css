@@ -1,0 +1,68 @@
+/* AutoMinds Africa — V6 mobile stability and flight containment */
+
+/* Keep the weather story physically inside its own rail on every breakpoint. */
+.business-flight-rail{
+  position:relative!important;
+  overflow:hidden!important;
+  isolation:isolate!important;
+  contain:layout paint!important;
+}
+.business-flight-rail .flight-half{
+  position:absolute!important;
+  top:0!important;
+  bottom:46px!important;
+  width:50%!important;
+  overflow:hidden!important;
+  clip-path:inset(0)!important;
+  contain:layout paint!important;
+}
+.business-flight-rail .flight-before{left:0!important;right:auto!important}
+.business-flight-rail .flight-after{right:0!important;left:auto!important}
+.business-flight-rail .flight-before .rain-field{
+  position:absolute!important;
+  left:0!important;
+  right:0!important;
+  top:58px!important;
+  bottom:0!important;
+  width:100%!important;
+  height:auto!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+  clip-path:inset(0)!important;
+  contain:paint!important;
+  z-index:2!important;
+  pointer-events:none!important;
+}
+.business-flight-rail .flight-before .rain-field::before,
+.business-flight-rail .flight-before .rain-field::after{
+  pointer-events:none!important;
+}
+
+/* The transition layer must never inherit any weather visuals. */
+#page-curtain,#experience-loader{
+  overflow:hidden!important;
+  background-color:var(--am-navy)!important;
+}
+#page-curtain .curtain-core,#experience-loader .loader-core{position:relative!important;z-index:3!important}
+
+@media(max-width:680px){
+  .business-flight-rail{
+    height:250px!important;
+    min-height:250px!important;
+    max-height:250px!important;
+  }
+  .business-flight-rail .flight-half{bottom:38px!important}
+  .business-flight-rail .flight-before .rain-field{top:48px!important;bottom:0!important}
+  .business-flight-rail .flight-scene-label{z-index:6!important}
+  .business-flight-rail .flight-plane{z-index:9!important}
+  .business-flight-rail .flight-label-strip{z-index:10!important}
+
+  #page-curtain .curtain-core{width:min(92vw,560px)!important;padding:20px!important}
+  #page-curtain .curtain-title{
+    font-size:clamp(34px,11vw,52px)!important;
+    line-height:.96!important;
+    white-space:normal!important;
+    max-width:94vw!important;
+  }
+  #page-curtain .curtain-kicker{font-size:8px!important;letter-spacing:.2em!important}
+}
