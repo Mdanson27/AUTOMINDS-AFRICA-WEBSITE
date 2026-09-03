@@ -10,6 +10,14 @@
     "contact.html":"CONTACT"
   };
 
+  // Load V3 enhancement layer across every experience page.
+  if (!document.querySelector('link[href="v3.css"]')) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "v3.css";
+    document.head.appendChild(link);
+  }
+
   const logo = `${root}autominds-africa-logo.png`;
 
   function curtainMarkup(){
@@ -46,7 +54,7 @@
     setTimeout(() => curtain?.classList.remove("leave"), 1100);
   }
 
-  // Internal page navigation with branded opening card
+  // Internal page navigation with branded opening card.
   document.addEventListener("click", e => {
     const link = e.target.closest("a[data-page-link]");
     if(!link) return;
@@ -65,7 +73,7 @@
     setTimeout(() => { window.location.href = href; }, 500);
   });
 
-  // Kampala clock
+  // Kampala clock.
   function updateClock(){
     const clock = document.querySelector("[data-kampala-clock]");
     if(!clock) return;
@@ -74,7 +82,7 @@
   }
   updateClock(); setInterval(updateClock,30000);
 
-  // Mobile navigation
+  // Mobile navigation.
   const menu = document.querySelector(".exp-menu");
   const nav = document.querySelector(".exp-nav");
   menu?.addEventListener("click",()=>{
@@ -82,35 +90,180 @@
     menu.setAttribute("aria-expanded", String(!!open));
   });
 
-  // Progressive human evolution rail: crawl -> toddler -> child -> teen -> adult
-  const figures = [
-    `<svg viewBox="0 0 100 100" aria-label="Crawling baby"><circle cx="30" cy="51" r="9" fill="#ff7900"/><path d="M38 56c10 1 16 5 21 12l12 2M47 61 35 73M59 67l-2 12M35 73l-12 2" fill="none" stroke="#145cff" stroke-width="7" stroke-linecap="round"/><circle cx="72" cy="72" r="4" fill="#06182d"/></svg>`,
-    `<svg viewBox="0 0 100 100" aria-label="Toddler"><circle cx="50" cy="24" r="10" fill="#ff7900"/><path d="M50 35v28M50 45 36 56M50 46l15 7M50 62 40 83M50 62l12 20" fill="none" stroke="#145cff" stroke-width="7" stroke-linecap="round"/></svg>`,
-    `<svg viewBox="0 0 100 100" aria-label="Child walking"><circle cx="48" cy="20" r="9" fill="#ff7900"/><path d="M48 31 51 59M50 42 33 50M50 42l17 4M51 59 35 79M51 59l18 16" fill="none" stroke="#145cff" stroke-width="7" stroke-linecap="round"/></svg>`,
-    `<svg viewBox="0 0 100 100" aria-label="Teenager"><circle cx="48" cy="17" r="8" fill="#ff7900"/><path d="M48 27 51 58M50 38 33 46M50 38l18 7M51 58 36 82M51 58l20 21" fill="none" stroke="#0a2442" stroke-width="7" stroke-linecap="round"/></svg>`,
-    `<svg viewBox="0 0 100 100" aria-label="Adult"><circle cx="48" cy="15" r="8" fill="#ff7900"/><path d="M48 25 50 57M50 35 31 47M50 35l20 5M50 57 33 85M50 57l23 24" fill="none" stroke="#06182d" stroke-width="8" stroke-linecap="round"/><path d="M45 30h12" stroke="#145cff" stroke-width="3"/></svg>`
-  ];
-  const stage = document.querySelector(".evolution-stage");
-  if(stage){
-    let phase = 0;
-    stage.innerHTML = figures[0];
-    setInterval(()=>{ phase=(phase+1)%figures.length; stage.innerHTML=figures[phase]; },2200);
+  // Replace the old human-evolution rail with the AutoMinds business-flight story.
+  function upgradeEvolutionRails(){
+    document.querySelectorAll(".evolution-rail").forEach(rail => {
+      rail.className = "business-flight-rail";
+      rail.innerHTML = `
+        <div class="flight-half flight-before" aria-hidden="true">
+          <div class="flight-scene-label"><b>BUSINESS BEFORE AUTOMINDS AFRICA</b><span>Manual work. Scattered tools. Repeated follow-up. Limited visibility.</span></div>
+          <div class="storm-cloud c1"></div><div class="storm-cloud c2"></div><div class="storm-cloud c3"></div><div class="rain-field"></div><div class="flight-ground"></div>
+        </div>
+        <div class="flight-half flight-after" aria-hidden="true">
+          <div class="flight-scene-label"><b>WITH AUTOMINDS AFRICA</b><span>Connected systems. Clear workflows. Better visibility. Growth with direction.</span></div>
+          <div class="sun-ray"></div><div class="sun-orb"></div><div class="clear-cloud a"></div><div class="clear-cloud b"></div><div class="flight-ground"></div>
+        </div>
+        <div class="flight-divider" aria-hidden="true"></div>
+        <div class="flight-plane" aria-label="Business journey from manual operations to growth with AutoMinds Africa">
+          <svg viewBox="0 0 100 100" role="img" aria-hidden="true"><path d="M8 52 87 20c4-2 7 3 4 6L66 49l23 11c3 1 3 6 0 7L76 71 57 59 43 82c-2 4-8 2-7-3l5-27-29 7c-5 1-8-5-4-7Z"/><path class="plane-accent" d="M41 52 66 49l-9 10-14 23-7-3 5-27Z"/></svg>
+        </div>
+        <div class="flight-label-strip"><b>BUSINESS JOURNEY</b><span>MANUAL → SMART DIGITAL SOLUTIONS → CONNECTED → GROWING</span></div>`;
+    });
   }
+  upgradeEvolutionRails();
 
-  // Reveal system
-  const revealNodes = document.querySelectorAll(".section-head2,.record,.project-card2,.person2,.contact-panel,.project-feature,.project-list a");
+  // Visible naming update: position the company around Smart Digital Solutions.
+  function refreshVisibleLanguage(){
+    const autoTab = document.querySelector('[data-system="automation"] b');
+    if(autoTab) autoTab.textContent = "Smart Digital Solutions";
+    const filter = document.querySelector('[data-project-filter="automation"]');
+    if(filter) filter.textContent = "SMART DIGITAL SOLUTIONS";
+
+    document.querySelectorAll(".record h3").forEach(h => {
+      if(h.textContent.trim() === "Google Workspace Automation") h.textContent = "Google Workspace Smart Digital Solutions";
+    });
+    document.querySelectorAll(".project-card2 h3").forEach(h => {
+      if(h.textContent.trim() === "School Administration Automation") h.textContent = "School Administration Smart Digital Solutions";
+    });
+    document.querySelectorAll(".project-card-top span").forEach(s => {
+      if(s.textContent.includes("AUTOMATION")) s.textContent = s.textContent.replace("AUTOMATION","SMART DIGITAL SOLUTIONS");
+    });
+  }
+  refreshVisibleLanguage();
+
+  // Premium footer on every page.
+  function upgradeFooter(){
+    const footer = document.querySelector(".exp-footer");
+    if(!footer) return;
+    footer.innerHTML = `
+      <div class="exp-footer-v3">
+        <section class="footer-v3-col footer-v3-brand">
+          <img src="autominds-africa-logo.png" alt="AutoMinds Africa" />
+          <h3>Work Smarter. Not Harder.</h3>
+          <p>AI, Smart Digital Solutions, Smart Digital Business Cards, dashboards, websites and connected business systems built from Uganda for African organizations and individuals.</p>
+        </section>
+        <nav class="footer-v3-col" aria-label="Footer explore">
+          <div class="footer-v3-title">EXPLORE</div>
+          <div class="footer-v3-links"><a href="index.html" data-page-link>Home</a><a href="systems.html" data-page-link>Systems</a><a href="projects.html" data-page-link>Projects</a><a href="team.html" data-page-link>Team</a><a href="contact.html" data-page-link>Contact</a></div>
+        </nav>
+        <section class="footer-v3-col">
+          <div class="footer-v3-title">SOLUTIONS</div>
+          <div class="footer-v3-links"><span>AI Assistants</span><span>Smart Digital Solutions</span><span>Smart Digital Business Cards</span><span>CRM & Business OS</span><span>Dashboards & Reporting</span><span>Websites & Web Apps</span></div>
+        </section>
+        <section class="footer-v3-col footer-v3-contact">
+          <div class="footer-v3-title">CONNECT</div>
+          <a href="mailto:automindsafrica@gmail.com">automindsafrica@gmail.com</a>
+          <a href="tel:+256783025667">+256 783 025 667</a>
+          <a href="https://wa.me/256783025667" target="_blank" rel="noopener">WhatsApp ↗</a>
+          <span>Kampala, Uganda</span>
+          <a class="footer-v3-demo" href="https://autominds-social-links.netlify.app/" target="_blank" rel="noopener">VIEW SMART PROFILE DEMO ↗</a>
+        </section>
+      </div>
+      <div class="exp-footer-bottom"><span>© 2026 AutoMinds Africa · Kampala, Uganda</span><span>WORK SMARTER. NOT HARDER.</span></div>`;
+  }
+  upgradeFooter();
+
+  // Dedicated Smart Digital Business Cards feature experience on Projects.
+  function insertSmartCardSpotlight(){
+    if(page.toLowerCase() !== "projects" || document.querySelector(".smart-card-spotlight")) return;
+    const anchor = document.querySelector(".business-flight-rail") || document.querySelector(".evolution-rail");
+    if(!anchor) return;
+    anchor.insertAdjacentHTML("afterend", `
+      <section class="smart-card-spotlight" id="smart-cards">
+        <div class="section-head2">
+          <div>
+            <p class="exp-eyebrow">SMART DIGITAL BUSINESS CARDS</p>
+            <h2>A smarter identity for <span>individuals and businesses.</span></h2>
+            <div class="smart-card-badge-row"><span>NFC + QR</span><span>LIVE PROFILE</span><span>PERSONAL DASHBOARD</span><span>BUSINESS DASHBOARD</span><span>PROFILE SWITCHERS</span></div>
+          </div>
+          <p>Each customized card opens an editable digital profile. Individuals manage their own identity. Businesses can manage multiple profiles, staff cards and brand consistency from a business dashboard.</p>
+        </div>
+
+        <div class="nfc-video-layout">
+          <div class="nfc-video-shell">
+            <video id="nfc-video" autoplay muted loop playsinline controls preload="metadata" aria-label="AutoMinds Africa Smart Digital Business Cards explainer">
+              <source src="AMF-NFC%20LANDSCAPE%20(1).mp4" type="video/mp4" />
+              Your browser does not support HTML video.
+            </video>
+            <div class="nfc-unmute-wrap" id="nfc-unmute-wrap">
+              <div class="unmute-cue" id="unmute-cue"><span>VIDEO IS PLAYING MUTED</span><i>→</i></div>
+              <button class="nfc-unmute" id="nfc-unmute" type="button" aria-pressed="false">🔊 UNMUTE</button>
+            </div>
+          </div>
+          <aside class="nfc-video-meta">
+            <div>
+              <span class="video-code">LIVE / PRODUCT EXPLAINER</span>
+              <h3>Tap once. Open a living digital identity.</h3>
+              <p>Watch how our NFC cards connect a physical branded card to a digital profile that can keep changing after the card has already been printed.</p>
+            </div>
+            <a class="demo-link" href="https://autominds-social-links.netlify.app/" target="_blank" rel="noopener"><span>OPEN SMART PROFILE DEMO</span><b>↗</b></a>
+          </aside>
+        </div>
+
+        <div class="smart-audience-grid">
+          <article class="smart-audience-card"><span class="aud-code">01 / INDIVIDUAL</span><h3>Your profile. Your dashboard.</h3><p>Built for professionals, executives, consultants and creators who need one editable digital identity behind their customized card.</p><ul><li>Personal dashboard for only your profile</li><li>Contact, WhatsApp, email, website and social actions</li><li>Portfolio, services, booking, map and payment links</li><li>Profile switchers and custom features when required</li></ul></article>
+          <article class="smart-audience-card"><span class="aud-code">02 / BUSINESS</span><h3>One dashboard. Multiple business identities.</h3><p>Businesses can operate a central dashboard for staff profiles and smart cards while keeping the brand and information easier to manage.</p><ul><li>Business-level dashboard</li><li>Multiple staff or business profiles</li><li>Profile switchers and centralized management</li><li>Custom integrations and advanced feature expansion</li></ul></article>
+        </div>
+
+        <div class="smart-pricing">
+          <div class="price-block"><small>BASIC CUSTOMIZED CARD</small><strong>UGX 100,000</strong><span>Customized branding + Smart Digital Business Card</span></div>
+          <div class="price-block"><small>MONTHLY SUBSCRIPTION</small><strong>UGX 20,000</strong><span>Active digital profile and ongoing access</span></div>
+          <div class="price-note"><b>CUSTOM REQUIREMENTS</b><p>Business dashboards, multi-profile management, profile switchers, integrations and other advanced features are priced according to what the client needs.</p></div>
+        </div>
+      </section>`);
+  }
+  insertSmartCardSpotlight();
+
+  function setupNfcVideo(){
+    const video = document.querySelector("#nfc-video");
+    const button = document.querySelector("#nfc-unmute");
+    const wrap = document.querySelector("#nfc-unmute-wrap");
+    if(!video || !button || !wrap) return;
+
+    const sync = () => {
+      const soundOn = !video.muted && video.volume > 0;
+      wrap.classList.toggle("sound-on", soundOn);
+      button.classList.toggle("is-on", soundOn);
+      button.setAttribute("aria-pressed", String(soundOn));
+      button.textContent = soundOn ? "🔇 MUTE" : "🔊 UNMUTE";
+    };
+
+    button.addEventListener("click", async () => {
+      video.muted = !video.muted;
+      if(!video.muted && video.volume === 0) video.volume = 1;
+      try { await video.play(); } catch (_) {}
+      sync();
+    });
+    video.addEventListener("volumechange", sync);
+    video.addEventListener("play", sync);
+    sync();
+  }
+  setupNfcVideo();
+
+  function enhanceSmartCardProjectCard(){
+    const card = [...document.querySelectorAll(".project-card2")].find(c => c.querySelector("h3")?.textContent.trim() === "Smart Digital Business Cards");
+    if(!card) return;
+    const p = card.querySelector("p");
+    if(p) p.textContent = "Customized NFC + QR cards connected to editable profiles for individuals and multi-profile business dashboards for teams, with profile switching and flexible feature expansion.";
+    const actions = card.querySelector(".project-actions");
+    if(actions) actions.innerHTML = `<a href="https://autominds-social-links.netlify.app/" target="_blank" rel="noopener">LIVE DEMO ↗</a><a href="contact.html" data-page-link>DISCUSS SOLUTION</a>`;
+  }
+  enhanceSmartCardProjectCard();
+
+  // Reveal system.
+  const revealNodes = document.querySelectorAll(".section-head2,.record,.project-card2,.person2,.contact-panel,.project-feature,.project-list a,.smart-card-spotlight,.smart-audience-card");
   revealNodes.forEach(n=>n.classList.add("reveal2"));
   if("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches){
     const io = new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("in");io.unobserve(entry.target)}}),{threshold:.1});
     revealNodes.forEach(n=>io.observe(n));
   } else revealNodes.forEach(n=>n.classList.add("in"));
 
-  // Systems page interactive workspace
+  // Systems page interactive workspace.
   const systemData = {
-    command:{code:"01 / COMMAND CENTER",title:"Business Operating System",desc:"One connected layer for leads, clients, projects, tasks, invoices, reporting and automations.",nodes:[["LEAD IN","forms · WhatsApp","blue"],["CRM","clients · pipeline",""],["OPERATIONS","projects · tasks","navy"],["VISIBILITY","dashboards · reports","orange"]],note:"A reliable operating system turns scattered actions into visible next steps.",note2:"ROLE BASED · MOBILE READY · AUDITABLE"},
+    command:{code:"01 / COMMAND CENTER",title:"Business Operating System",desc:"One connected layer for leads, clients, projects, tasks, invoices, reporting and smart digital workflows.",nodes:[["LEAD IN","forms · WhatsApp","blue"],["CRM","clients · pipeline",""],["OPERATIONS","projects · tasks","navy"],["VISIBILITY","dashboards · reports","orange"]],note:"A reliable operating system turns scattered actions into visible next steps.",note2:"ROLE BASED · MOBILE READY · AUDITABLE"},
     ai:{code:"02 / AI WORKFLOW",title:"AI Customer Assistant",desc:"AI enters where repetitive communication needs speed, structure and a clear human handoff.",nodes:[["MESSAGE","WhatsApp · web","blue"],["AI AGENT","understand · answer","navy"],["ACTION","book · qualify · route","orange"],["CRM","capture · follow-up",""]],note:"AI handles the repeatable. People handle the important exceptions.",note2:"24/7 READY · HUMAN ESCALATION"},
-    identity:{code:"03 / SMART IDENTITY",title:"NFC + QR Professional Profile",desc:"A physical card becomes the trigger for a digital identity that can keep evolving after print.",nodes:[["TAP","NFC","orange"],["SCAN","QR","blue"],["PROFILE","brand · details","navy"],["ACT","save · WhatsApp · book",""]],note:"One card. One profile. Update the information without replacing the identity.",note2:"EXECUTIVES · TEAMS · EVENTS"},
-    automation:{code:"04 / AUTOMATION",title:"Connected Workflow Engine",desc:"Forms, Sheets, Docs, Gmail, Drive, Calendar and APIs move together around the actual process.",nodes:[["INPUT","form · email","blue"],["RULE","validate · route",""] ,["AUTOMATE","docs · alerts","navy"],["REPORT","status · export","orange"]],note:"Automate the handoffs people repeat. Keep human decisions visible.",note2:"GOOGLE WORKSPACE · APIs · DATA"},
+    identity:{code:"03 / SMART IDENTITY",title:"NFC + QR Professional Profile",desc:"A physical card becomes the trigger for a digital identity that can keep evolving after print.",nodes:[["TAP","NFC","orange"],["SCAN","QR","blue"],["PROFILE","brand · details","navy"],["ACT","save · WhatsApp · book",""]],note:"One card. One profile. Update the information without replacing the identity.",note2:"INDIVIDUALS · BUSINESSES · TEAMS"},
+    automation:{code:"04 / SMART DIGITAL SOLUTIONS",title:"Connected Smart Workflow Engine",desc:"Forms, Sheets, Docs, Gmail, Drive, Calendar and APIs move together around the actual process.",nodes:[["INPUT","form · email","blue"],["RULE","validate · route",""] ,["CONNECT","docs · alerts","navy"],["REPORT","status · export","orange"]],note:"Digitize the handoffs people repeat. Keep important human decisions visible.",note2:"GOOGLE WORKSPACE · APIs · DATA"},
     build:{code:"05 / BUILD LAB",title:"Websites + Web Applications",desc:"Interfaces designed around the operation behind them: service sites, portals, booking flows and internal tools.",nodes:[["DISCOVER","users · problem","blue"],["DESIGN","flow · interface",""] ,["BUILD","web · integration","navy"],["SHIP","test · deploy","orange"]],note:"Build less, connect better, maintain what matters.",note2:"MOBILE FIRST · SECURE · FAST"}
   };
   function renderSystem(key){
@@ -122,7 +275,7 @@
   }));
   if(document.querySelector("#system-canvas2")) renderSystem("command");
 
-  // Projects filters
+  // Projects filters.
   document.querySelectorAll("[data-project-filter]").forEach(btn=>btn.addEventListener("click",()=>{
     document.querySelectorAll("[data-project-filter]").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
     const f=btn.dataset.projectFilter;
