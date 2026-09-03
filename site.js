@@ -3,10 +3,16 @@
   const page = body.dataset.page || "Home";
   const root = "";
   const pageMap = {
+    "":"HOME",
+    "index":"HOME",
     "index.html":"HOME",
+    "systems":"SYSTEMS",
     "systems.html":"SYSTEMS",
+    "projects":"PROJECTS",
     "projects.html":"PROJECTS",
+    "team":"TEAM",
     "team.html":"TEAM",
+    "contact":"CONTACT",
     "contact.html":"CONTACT"
   };
 
@@ -18,12 +24,32 @@
     document.head.appendChild(link);
   }
 
+  // Load the final stability layer after V3 so mobile containment wins the cascade.
+  if (!document.querySelector('link[href="mobile-v6.css"]')) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "mobile-v6.css";
+    document.head.appendChild(link);
+  }
+
   const logo = `${root}autominds-africa-logo.png`;
 
   function curtainMarkup(){
     return `<div id="page-curtain" aria-hidden="true"><div class="curtain-core"><div class="curtain-kicker">AUTOMINDS AFRICA / NAVIGATING</div><div class="curtain-title">OPENING <span>${page.toUpperCase()}</span></div></div></div>`;
   }
   body.insertAdjacentHTML("afterbegin", curtainMarkup());
+
+  function resolvePageLabel(href, link){
+    try {
+      const url = new URL(href, window.location.href);
+      const parts = url.pathname.split("/").filter(Boolean);
+      const key = (parts.pop() || "index.html").toLowerCase();
+      const clean = key.replace(/\.html$/i, "");
+      return pageMap[key] || pageMap[clean] || link?.dataset.pageName || link?.textContent?.trim().toUpperCase() || "HOME";
+    } catch (_) {
+      return link?.dataset.pageName || link?.textContent?.trim().toUpperCase() || "HOME";
+    }
+  }
 
   const firstVisit = !sessionStorage.getItem("am-experience-seen");
   const arriving = sessionStorage.getItem("am-arriving");
@@ -49,6 +75,8 @@
   } else if(arriving){
     sessionStorage.removeItem("am-arriving");
     const curtain = document.querySelector("#page-curtain");
+    const title = curtain?.querySelector(".curtain-title");
+    if(title) title.innerHTML = `OPENING <span>${page.toUpperCase()}</span>`;
     curtain?.classList.add("show");
     setTimeout(() => { curtain?.classList.remove("show"); curtain?.classList.add("leave"); }, 420);
     setTimeout(() => curtain?.classList.remove("leave"), 1100);
@@ -61,8 +89,7 @@
     if(e.metaKey || e.ctrlKey || e.shiftKey || link.target === "_blank") return;
     const href = link.getAttribute("href");
     if(!href || href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
-    const file = href.split("#")[0] || "index.html";
-    const label = pageMap[file] || link.dataset.pageName || "PAGE";
+    const label = resolvePageLabel(href, link);
     e.preventDefault();
     const curtain = document.querySelector("#page-curtain");
     const title = curtain?.querySelector(".curtain-title");
