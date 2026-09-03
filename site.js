@@ -1,4 +1,4 @@
-(() => {
+(async () => {
   const body = document.body;
   const page = body.dataset.page || "Home";
   const root = "";
@@ -16,23 +16,36 @@
     "contact.html":"CONTACT"
   };
 
-  // Load V3 enhancement layer across every experience page.
-  if (!document.querySelector('link[href="v3.css"]')) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "v3.css";
-    document.head.appendChild(link);
-  }
-
-  // Load the final stability layer after V3 so mobile containment wins the cascade.
-  if (!document.querySelector('link[href="mobile-v6.css"]')) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "mobile-v6.css";
-    document.head.appendChild(link);
-  }
-
   const logo = `${root}autominds-africa-logo.png`;
+
+  function loadStylesheet(href){
+    return new Promise(resolve => {
+      let link = [...document.querySelectorAll('link[rel="stylesheet"]')]
+        .find(item => item.getAttribute("href") === href || item.href.endsWith(`/${href}`));
+      if(link){
+        if(link.sheet){ resolve(); return; }
+        link.addEventListener("load", resolve, {once:true});
+        link.addEventListener("error", resolve, {once:true});
+        return;
+      }
+      link = document.createElement("link");
+      link.rel = "stylesheet";
+      link.href = href;
+      link.addEventListener("load", resolve, {once:true});
+      link.addEventListener("error", resolve, {once:true});
+      document.head.appendChild(link);
+    });
+  }
+
+  /*
+   * IMPORTANT: the weather DOM is not created until BOTH structural style
+   * layers are fully loaded. This removes the old race condition where the
+   * rain pseudo-elements briefly existed before their clipping container.
+   */
+  const criticalStylesReady = Promise.all([
+    loadStylesheet("v3.css"),
+    loadStylesheet("mobile-v6.css")
+  ]);
 
   function curtainMarkup(){
     return `<div id="page-curtain" aria-hidden="true"><div class="curtain-core"><div class="curtain-kicker">AUTOMINDS AFRICA / NAVIGATING</div><div class="curtain-title">OPENING <span>${page.toUpperCase()}</span></div></div></div>`;
@@ -51,10 +64,11 @@
     }
   }
 
-  const firstVisit = !sessionStorage.getItem("am-experience-seen");
   const arriving = sessionStorage.getItem("am-arriving");
+  const isHome = page.toLowerCase() === "home";
 
-  if(firstVisit){
+  function createExperienceLoader(){
+    if(document.querySelector("#experience-loader")) return document.querySelector("#experience-loader");
     body.insertAdjacentHTML("afterbegin", `
       <div id="experience-loader" role="status" aria-live="polite">
         <div class="loader-core">
@@ -65,21 +79,78 @@
           <div class="loader-small">KAMPALA · UGANDA · AFRICA</div>
         </div>
       </div>`);
-    const msg = document.querySelector("#loader-message");
-    setTimeout(() => { if(msg) msg.innerHTML = `CHANGE <span>IS HERE.</span>`; }, 950);
+    return document.querySelector("#experience-loader");
+  }
+
+  function waitForWindowLoad(){
+    if(document.readyState === "complete") return Promise.resolve();
+    return new Promise(resolve => window.addEventListener("load", resolve, {once:true}));
+  }
+
+  function waitForCriticalVideo(){
+    const video = document.querySelector(".home-nfc-media video");
+    if(!video || video.readyState >= 3) return Promise.resolve();
+    return new Promise(resolve => {
+      const done = () => resolve();
+      video.addEventListener("canplay", done, {once:true});
+      video.addEventListener("error", done, {once:true});
+      setTimeout(done, 7000);
+    });
+  }
+
+  async function runHomeLoader(){
+    /* Internal navigation to Home uses the page curtain. Refresh/direct Home uses the 5s boot loader. */
+    if(!isHome || arriving) return;
+
+    const loader = createExperienceLoader();
+    const msg = loader?.querySelector("#loader-message");
+    const started = performance.now();
+    body.classList.add("am-home-loading");
+
     setTimeout(() => {
-      document.querySelector("#experience-loader")?.classList.add("loader-hide");
-      sessionStorage.setItem("am-experience-seen","1");
-      setTimeout(() => document.querySelector("#experience-loader")?.remove(), 900);
-    }, 1950);
-  } else if(arriving){
+      if(msg) msg.innerHTML = `CHANGE <span>IS HERE.</span>`;
+    }, 2500);
+
+    const minFiveSeconds = new Promise(resolve => {
+      const remaining = Math.max(0, 5000 - (performance.now() - started));
+      setTimeout(resolve, remaining);
+    });
+
+    const fontsReady = document.fonts?.ready?.catch?.(() => {}) || Promise.resolve();
+
+    await Promise.all([
+      minFiveSeconds,
+      criticalStylesReady,
+      waitForWindowLoad(),
+      fontsReady,
+      waitForCriticalVideo()
+    ]);
+
+    /* Give the browser two paint opportunities so final layout is settled under the opaque loader. */
+    await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    body.classList.remove("am-home-loading");
+    body.classList.add("am-home-ready");
+    loader?.classList.add("loader-hide");
+    setTimeout(() => loader?.remove(), 900);
+  }
+
+  const homeLoaderTask = runHomeLoader();
+
+  if(arriving){
     sessionStorage.removeItem("am-arriving");
+    body.classList.add("page-transitioning");
     const curtain = document.querySelector("#page-curtain");
     const title = curtain?.querySelector(".curtain-title");
     if(title) title.innerHTML = `OPENING <span>${page.toUpperCase()}</span>`;
     curtain?.classList.add("show");
-    setTimeout(() => { curtain?.classList.remove("show"); curtain?.classList.add("leave"); }, 420);
-    setTimeout(() => curtain?.classList.remove("leave"), 1100);
+    setTimeout(() => {
+      curtain?.classList.remove("show");
+      curtain?.classList.add("leave");
+    }, 420);
+    setTimeout(() => {
+      curtain?.classList.remove("leave");
+      body.classList.remove("page-transitioning");
+    }, 1100);
   }
 
   // Internal page navigation with branded opening card.
@@ -91,6 +162,9 @@
     if(!href || href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("tel:")) return;
     const label = resolvePageLabel(href, link);
     e.preventDefault();
+    body.classList.add("page-transitioning");
+    nav?.classList.remove("open");
+    menu?.setAttribute("aria-expanded", "false");
     const curtain = document.querySelector("#page-curtain");
     const title = curtain?.querySelector(".curtain-title");
     if(title) title.innerHTML = `OPENING <span>${label}</span>`;
@@ -117,6 +191,9 @@
     menu.setAttribute("aria-expanded", String(!!open));
   });
 
+  /* Wait for the complete flight layout CSS before inserting any weather elements. */
+  await criticalStylesReady;
+
   // Replace the old human-evolution rail with the AutoMinds business-flight story.
   function upgradeEvolutionRails(){
     document.querySelectorAll(".evolution-rail").forEach(rail => {
@@ -131,9 +208,7 @@
           <div class="sun-ray"></div><div class="sun-orb"></div><div class="clear-cloud a"></div><div class="clear-cloud b"></div><div class="flight-ground"></div>
         </div>
         <div class="flight-divider" aria-hidden="true"></div>
-        <div class="flight-plane" aria-label="Business journey from manual operations to growth with AutoMinds Africa">
-          <svg viewBox="0 0 100 100" role="img" aria-hidden="true"><path d="M8 52 87 20c4-2 7 3 4 6L66 49l23 11c3 1 3 6 0 7L76 71 57 59 43 82c-2 4-8 2-7-3l5-27-29 7c-5 1-8-5-4-7Z"/><path class="plane-accent" d="M41 52 66 49l-9 10-14 23-7-3 5-27Z"/></svg>
-        </div>
+        <div class="flight-plane" aria-label="Business journey from manual operations to growth with AutoMinds Africa"></div>
         <div class="flight-label-strip"><b>BUSINESS JOURNEY</b><span>MANUAL → SMART DIGITAL SOLUTIONS → CONNECTED → GROWING</span></div>`;
     });
   }
@@ -308,4 +383,6 @@
     const f=btn.dataset.projectFilter;
     document.querySelectorAll(".project-card2").forEach(card=>card.classList.toggle("hidden",f!=="all" && card.dataset.category!==f));
   }));
+
+  await homeLoaderTask;
 })();
