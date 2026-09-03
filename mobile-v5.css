@@ -1,0 +1,172 @@
+/* AutoMinds Africa — V5 mobile optimization layer */
+
+/* =========================================================
+   RIGHT-EDGE MOBILE / TABLET NAVIGATION
+   ========================================================= */
+@media (max-width:1050px){
+  .exp-header{gap:14px}
+  .exp-menu{
+    display:grid!important;place-items:center;margin-left:auto!important;flex:0 0 auto;
+    position:relative;z-index:95;cursor:pointer;border-radius:0;
+  }
+  .exp-nav{
+    position:fixed!important;
+    top:82px!important;right:0!important;left:auto!important;
+    width:min(360px,88vw)!important;height:calc(100dvh - 82px)!important;
+    margin:0!important;padding:16px!important;
+    display:none!important;flex-direction:column!important;align-items:stretch!important;justify-content:flex-start!important;
+    gap:5px!important;overflow-y:auto!important;
+    background:rgba(255,255,255,.98)!important;
+    border:1px solid var(--am-line)!important;border-right:0!important;
+    box-shadow:-32px 28px 70px rgba(6,24,45,.20)!important;
+    backdrop-filter:blur(22px)!important;
+    z-index:90!important;
+  }
+  .exp-nav.open{display:flex!important}
+  .exp-nav::before{
+    content:"AUTOMINDS / NAVIGATION";display:block;padding:8px 12px 16px;
+    color:#8192a8;font:600 9px var(--am-mono);letter-spacing:.14em;
+    border-bottom:1px solid var(--am-line);margin-bottom:4px;
+  }
+  .exp-nav a{
+    width:100%;padding:17px 14px!important;border:0!important;border-bottom:1px solid #e3ebf5!important;
+    background:transparent!important;display:flex;align-items:center;justify-content:space-between;
+  }
+  .exp-nav a::after{content:"↗";color:#9aabc0;font-size:11px}
+  .exp-nav a.active{color:var(--am-blue)!important;background:#f4f8ff!important}
+  .exp-nav a.active::after{color:var(--am-orange)}
+}
+
+/* =========================================================
+   SMALL SCREEN LAYOUT / TYPOGRAPHY / SPACING
+   ========================================================= */
+@media (max-width:680px){
+  html,body{max-width:100%;overflow-x:hidden}
+  .exp-frame{width:100%!important;max-width:100%!important}
+  .exp-header{height:68px!important;padding:0 12px!important;gap:10px!important}
+  .real-brand{min-width:0!important;max-width:132px!important;flex:0 1 auto}
+  .real-brand img{width:116px!important;max-height:50px!important;object-fit:contain!important;object-position:left center!important}
+  .exp-menu{width:42px!important;height:42px!important;margin-left:auto!important;font-size:19px!important}
+  .exp-nav{top:68px!important;width:min(330px,88vw)!important;height:calc(100dvh - 68px)!important;padding:12px!important}
+  .exp-nav a{padding:16px 13px!important;font-size:10px!important}
+
+  .exp-hero,.page-hero{grid-template-columns:1fr!important;min-height:0!important}
+  .exp-hero-main,.page-hero-copy{padding:42px 18px 38px!important}
+  .exp-hero h1{font-size:clamp(46px,13vw,58px)!important;line-height:.92!important;margin:20px 0 26px!important}
+  .page-hero h1{font-size:clamp(46px,13vw,58px)!important;line-height:.92!important;margin:18px 0 20px!important}
+  .exp-lede,.page-hero p{font-size:14px!important;line-height:1.7!important}
+  .exp-lede-row{gap:20px!important}
+  .exp-cta{width:100%;padding:18px!important;gap:20px!important}
+  .exp-hero-side,.page-hero-side{min-height:230px!important;padding:24px 20px!important}
+  .page-hero-side strong{font-size:clamp(28px,9.5vw,39px)!important}
+
+  .section-pad{padding:48px 16px!important}
+  .section-head2{gap:18px!important;margin-bottom:28px!important}
+  .section-head2 h2{font-size:clamp(38px,11.5vw,50px)!important;line-height:.98!important}
+  .section-head2>p{font-size:13px!important;line-height:1.65!important}
+  .record-grid,.team-grid2,.projects-grid2{grid-template-columns:1fr!important}
+  .record{min-height:205px!important;padding:22px!important}
+  .record h3{font-size:20px!important;margin:38px 0 10px!important}
+  .record p{font-size:12px!important}
+
+  .project-teasers{grid-template-columns:1fr!important}
+  .project-feature{padding:18px!important;min-height:0!important}
+  .project-feature h3{font-size:28px!important}
+  .project-list a{padding:17px 14px!important;grid-template-columns:28px 1fr!important}
+  .project-list small{display:none!important}
+  .home-nfc-media{min-height:0!important;aspect-ratio:16/9!important}
+  .home-video-badge{font-size:7px!important;left:8px!important;top:8px!important;padding:6px 7px!important}
+
+  .business-flight-rail{height:285px!important}
+  .flight-scene-label{max-width:140px!important;left:12px!important;top:16px!important}
+  .flight-after .flight-scene-label{right:12px!important;left:auto!important}
+  .flight-scene-label b{font-size:7px!important;line-height:1.35!important}
+  .flight-divider::before{font-size:6px!important;padding:6px 7px!important;top:72px!important}
+  .flight-label-strip{padding:0 10px!important;gap:10px!important;font-size:6px!important;overflow:hidden!important;white-space:nowrap!important}
+  .flight-plane{width:70px!important;height:52px!important}
+
+  .system-grid2{grid-template-columns:1fr!important}
+  .system-side2{display:flex!important;overflow-x:auto!important;overscroll-behavior-x:contain;border-right:0!important;border-bottom:1px solid var(--am-line)!important;scrollbar-width:none}
+  .system-side2::-webkit-scrollbar{display:none}
+  .system-side2 button{min-width:175px!important;padding:17px 14px!important}
+  .system-stage2{padding:12px!important;min-height:520px!important}
+  .sys-canvas{padding:18px!important;min-height:500px!important}
+  .sys-flow{margin-top:35px!important;gap:8px!important;flex-direction:column!important;align-items:stretch!important}
+  .sys-node{min-width:0!important;width:100%!important}
+  .sys-arrow{transform:rotate(90deg)!important;align-self:center!important}
+  .sys-note{position:static!important;transform:none!important;max-width:none!important;margin-top:18px!important}
+
+  .projects-toolbar{display:flex!important;overflow-x:auto!important;gap:6px!important;padding-bottom:6px!important;scrollbar-width:none}
+  .projects-toolbar::-webkit-scrollbar{display:none}
+  .projects-toolbar button{flex:0 0 auto!important;white-space:nowrap!important}
+  .project-card2{min-width:0!important;overflow:hidden!important}
+  .project-card-visual{min-height:210px!important;height:210px!important}
+  .project-card-body{padding:22px 18px 24px!important}
+  .project-card-body h3{font-size:25px!important;line-height:1.05!important}
+  .project-card-body p{font-size:12px!important;line-height:1.65!important}
+  .project-card-top{gap:10px!important;align-items:flex-start!important}
+  .project-actions{gap:8px!important;flex-wrap:wrap!important}
+  .project-actions a,.project-actions span{font-size:8px!important;padding:11px 10px!important}
+
+  .smart-card-spotlight{padding:42px 14px!important}
+  .nfc-video-layout{grid-template-columns:1fr!important}
+  .nfc-video-shell,.nfc-video-shell video{min-height:220px!important}
+  .nfc-video-meta{padding:22px!important}
+  .smart-audience-grid,.smart-pricing{grid-template-columns:1fr!important}
+  .smart-audience-card{padding:22px!important;min-height:0!important}
+  .price-block,.price-note{padding:22px!important}
+
+  .contact-grid2{grid-template-columns:1fr!important}
+  .contact-panel,.contact-panel:nth-child(2n){padding:26px 20px!important;min-height:0!important;border-right:0!important}
+  .contact-panel h3{margin:26px 0 10px!important;font-size:23px!important}
+  .contact-panel a{font-size:14px!important;word-break:break-word}
+
+  .exp-footer-v3{grid-template-columns:1fr!important}
+  .footer-v3-col{padding:30px 20px!important;min-height:0!important;border-right:0!important;border-bottom:1px solid #183754!important}
+  .footer-v3-brand img{width:170px!important;max-height:70px!important}
+  .footer-v3-brand h3{font-size:22px!important;margin:20px 0 9px!important}
+  .exp-footer-bottom{padding:17px 20px!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+}
+
+/* =========================================================
+   CONTACT → GMAIL COMPOSER
+   ========================================================= */
+.gmail-compose-section{padding:72px 48px;border-bottom:1px solid var(--am-line);background:linear-gradient(180deg,#f7fbff,#fff)}
+.gmail-compose-grid{display:grid;grid-template-columns:minmax(0,.78fr) minmax(0,1.22fr);gap:1px;background:var(--am-line);border:1px solid var(--am-line)}
+.gmail-compose-intro{padding:36px;background:var(--am-navy);color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:480px}
+.gmail-compose-intro .gmail-code{font:600 9px var(--am-mono);letter-spacing:.14em;color:#7fa1c7}
+.gmail-compose-intro h3{font-size:clamp(34px,4vw,56px);line-height:.98;letter-spacing:-.05em;margin:18px 0}
+.gmail-compose-intro h3 span{color:var(--am-orange)}
+.gmail-compose-intro p{color:#a7bad0;font-size:13px;line-height:1.75;max-width:430px}
+.gmail-compose-steps{display:grid;gap:10px;margin-top:28px}
+.gmail-compose-steps span{font:500 9px var(--am-mono);letter-spacing:.08em;color:#bfd0e3}
+.gmail-compose-form{padding:34px;background:#fff;display:grid;gap:18px}
+.gmail-field{display:grid;gap:8px}
+.gmail-field label{font:600 9px var(--am-mono);letter-spacing:.12em;color:#6d8097;text-transform:uppercase}
+.gmail-field input,.gmail-field textarea{width:100%;border:1px solid var(--am-line);background:#fbfdff;color:var(--am-ink);font:500 13px var(--am-sans);padding:14px 15px;outline:none;transition:.2s;border-radius:0}
+.gmail-field input:focus,.gmail-field textarea:focus{border-color:var(--am-blue);box-shadow:0 0 0 3px rgba(20,92,255,.08);background:#fff}
+.gmail-field textarea{min-height:190px;resize:vertical;line-height:1.65}
+.gmail-form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gmail-counter{display:flex;justify-content:space-between;gap:12px;color:#8192a8;font:500 8px var(--am-mono);letter-spacing:.08em}
+.gmail-open-btn{border:1px solid var(--am-line);background:#eef3f8;color:#7d8da0;padding:17px 18px;display:flex;align-items:center;justify-content:space-between;gap:18px;font:800 10px var(--am-mono);letter-spacing:.09em;cursor:not-allowed;transition:.25s}
+.gmail-open-btn.ready{background:#1db954;border-color:#1db954;color:#fff;cursor:pointer;box-shadow:0 14px 30px rgba(29,185,84,.20)}
+.gmail-open-btn.ready:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(29,185,84,.28)}
+.gmail-open-btn b{font-size:17px}
+.gmail-ready-note{min-height:19px;color:#7b8da2;font-size:11px;line-height:1.5}
+.gmail-ready-note.ready{color:#188c46}
+
+@media(max-width:900px){
+  .gmail-compose-section{padding:56px 24px}
+  .gmail-compose-grid{grid-template-columns:1fr}
+  .gmail-compose-intro{min-height:310px}
+}
+@media(max-width:680px){
+  .gmail-compose-section{padding:42px 14px!important}
+  .gmail-compose-intro{padding:26px 20px!important;min-height:0!important}
+  .gmail-compose-intro h3{font-size:38px!important}
+  .gmail-compose-form{padding:22px 16px!important;gap:15px!important}
+  .gmail-form-row{grid-template-columns:1fr!important;gap:15px!important}
+  .gmail-field textarea{min-height:170px!important}
+  .gmail-open-btn{width:100%;padding:16px!important}
+  .gmail-counter{flex-direction:column;gap:4px}
+}
