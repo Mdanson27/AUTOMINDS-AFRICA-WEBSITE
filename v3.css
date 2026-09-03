@@ -1,0 +1,67 @@
+/* AutoMinds Africa — V3 enhancement layer */
+
+/* ---------- Story rail: before / with AutoMinds ---------- */
+.business-flight-rail{position:relative;height:320px;overflow:hidden;border-bottom:1px solid var(--am-line);background:#fff;isolation:isolate}
+.flight-half{position:absolute;top:0;bottom:44px;width:50%;overflow:hidden}
+.flight-before{left:0;background:linear-gradient(180deg,#e7ebef 0%,#dfe5eb 58%,#edf1f4 100%)}
+.flight-after{right:0;background:linear-gradient(180deg,#dff2ff 0%,#f9fcff 54%,#fff8e7 100%)}
+.flight-divider{position:absolute;left:50%;top:0;bottom:44px;width:1px;background:linear-gradient(180deg,transparent,rgba(20,92,255,.45),transparent);z-index:5}
+.flight-divider::before{content:"AUTOMINDS AFRICA";position:absolute;top:18px;left:50%;transform:translateX(-50%);background:var(--am-navy);color:#fff;padding:9px 13px;white-space:nowrap;font:600 9px var(--am-mono);letter-spacing:.14em}
+.flight-scene-label{position:absolute;left:26px;top:25px;z-index:4;max-width:265px}
+.flight-after .flight-scene-label{left:auto;right:26px;text-align:right}
+.flight-scene-label b{display:block;font:700 10px var(--am-mono);letter-spacing:.15em;color:var(--am-ink);margin-bottom:8px}
+.flight-scene-label span{font-size:12px;line-height:1.55;color:#67768b}
+.storm-cloud{position:absolute;width:105px;height:35px;border-radius:50px;background:#aeb8c4;filter:drop-shadow(0 6px 8px rgba(47,62,78,.1));opacity:.78}
+.storm-cloud::before,.storm-cloud::after{content:"";position:absolute;border-radius:50%;background:inherit}.storm-cloud::before{width:48px;height:48px;left:16px;top:-24px}.storm-cloud::after{width:58px;height:58px;right:11px;top:-30px}
+.storm-cloud.c1{left:12%;top:88px}.storm-cloud.c2{left:55%;top:132px;transform:scale(.78)}.storm-cloud.c3{left:29%;top:190px;transform:scale(.56)}
+.rain-field{position:absolute;inset:75px 0 0;background:repeating-linear-gradient(108deg,transparent 0 18px,rgba(85,106,128,.2) 19px 20px,transparent 21px 37px);animation:rainMove .75s linear infinite;opacity:.7}
+@keyframes rainMove{to{background-position:-40px 70px}}
+.flight-ground{position:absolute;left:0;right:0;bottom:0;height:67px;border-top:1px solid rgba(85,109,134,.24);background:linear-gradient(180deg,rgba(255,255,255,.25),rgba(255,255,255,.52))}
+.flight-ground::after{content:"";position:absolute;left:0;right:0;bottom:0;height:48px;opacity:.5;background:linear-gradient(90deg,transparent 2%,rgba(72,97,121,.14) 2% 6%,transparent 6% 10%,rgba(72,97,121,.18) 10% 15%,transparent 15% 21%,rgba(72,97,121,.13) 21% 25%,transparent 25% 30%,rgba(72,97,121,.18) 30% 37%,transparent 37% 43%,rgba(72,97,121,.14) 43% 48%,transparent 48% 55%,rgba(72,97,121,.17) 55% 62%,transparent 62% 68%,rgba(72,97,121,.13) 68% 73%,transparent 73% 80%,rgba(72,97,121,.17) 80% 87%,transparent 87% 92%,rgba(72,97,121,.13) 92% 97%,transparent 97%)}
+.sun-orb{position:absolute;width:62px;height:62px;border-radius:50%;right:13%;top:72px;background:#ffb13b;box-shadow:0 0 0 14px rgba(255,177,59,.09),0 0 50px rgba(255,177,59,.28)}
+.sun-ray{position:absolute;width:190px;height:190px;border-radius:50%;right:calc(13% - 64px);top:8px;border:1px dashed rgba(255,159,0,.22);animation:sunSpin 15s linear infinite}
+@keyframes sunSpin{to{transform:rotate(360deg)}}
+.clear-cloud{position:absolute;width:80px;height:26px;border-radius:50px;background:rgba(255,255,255,.84);box-shadow:0 8px 20px rgba(25,85,140,.08)}.clear-cloud::before,.clear-cloud::after{content:"";position:absolute;background:inherit;border-radius:50%}.clear-cloud::before{width:35px;height:35px;left:12px;top:-17px}.clear-cloud::after{width:42px;height:42px;right:10px;top:-21px}.clear-cloud.a{left:12%;top:114px}.clear-cloud.b{left:52%;top:170px;transform:scale(.75)}
+.flight-plane{position:absolute;z-index:9;left:-6%;top:54%;width:74px;height:74px;display:grid;place-items:center;animation:planeJourney 12s cubic-bezier(.36,.03,.52,.97) infinite;filter:drop-shadow(0 8px 13px rgba(4,27,51,.16));will-change:left,top,transform}
+.flight-plane svg{width:72px;height:72px;transform:rotate(8deg)}
+.flight-plane path{fill:var(--am-blue)}.flight-plane .plane-accent{fill:var(--am-orange)}
+@keyframes planeJourney{
+  0%{left:-7%;top:61%;transform:rotate(-7deg)}
+  9%{left:7%;top:42%;transform:rotate(9deg)}
+  18%{left:18%;top:63%;transform:rotate(-11deg)}
+  28%{left:29%;top:43%;transform:rotate(8deg)}
+  38%{left:40%;top:59%;transform:rotate(-7deg)}
+  48%{left:49%;top:47%;transform:rotate(2deg)}
+  57%{left:60%;top:38%;transform:rotate(-9deg)}
+  68%{left:70%;top:29%;transform:rotate(-12deg)}
+  79%{left:80%;top:18%;transform:rotate(-15deg)}
+  90%{left:91%;top:2%;transform:rotate(-18deg)}
+  100%{left:105%;top:-30%;transform:rotate(-20deg)}
+}
+.flight-label-strip{position:absolute;left:0;right:0;bottom:0;height:44px;display:flex;align-items:center;justify-content:space-between;padding:0 28px;border-top:1px solid var(--am-line);background:#f8fbff;font:600 9px var(--am-mono);letter-spacing:.12em;text-transform:uppercase}.flight-label-strip b{color:var(--am-blue)}.flight-label-strip span{color:#788ba2}
+
+/* ---------- Smart Digital Business Cards spotlight ---------- */
+.smart-card-spotlight{padding:76px 48px;border-bottom:1px solid var(--am-line);background:linear-gradient(180deg,#fff,#f7fbff)}
+.smart-card-spotlight .section-head2{margin-bottom:34px}.smart-card-badge-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}.smart-card-badge-row span{padding:8px 10px;border:1px solid var(--am-line);font:600 9px var(--am-mono);letter-spacing:.09em;color:#657991;background:#fff}
+.nfc-video-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(285px,.65fr);gap:1px;background:var(--am-line);border:1px solid var(--am-line);margin-top:34px}
+.nfc-video-shell{position:relative;background:var(--am-navy);min-height:430px;display:flex;align-items:center;justify-content:center;overflow:hidden}.nfc-video-shell video{display:block;width:100%;height:100%;min-height:430px;max-height:650px;object-fit:cover;background:#000}
+.nfc-video-meta{background:#fff;padding:34px;display:flex;flex-direction:column;justify-content:space-between;gap:28px}.nfc-video-meta .video-code{font:600 10px var(--am-mono);letter-spacing:.14em;color:var(--am-orange)}.nfc-video-meta h3{font-size:clamp(28px,3vw,45px);line-height:1.02;letter-spacing:-.045em;margin:8px 0 14px}.nfc-video-meta p{font-size:14px;line-height:1.7;color:#67778c;margin:0}.nfc-video-meta .demo-link{display:flex;align-items:center;justify-content:space-between;padding:17px 18px;background:var(--am-blue);color:#fff;text-decoration:none;font-weight:800;font-size:12px}.nfc-video-meta .demo-link:hover{background:#0b4be4}
+.nfc-unmute-wrap{position:absolute;right:18px;bottom:60px;z-index:12;display:flex;align-items:center;gap:12px}.unmute-cue{display:flex;align-items:center;gap:9px;padding:10px 12px;background:rgba(6,24,45,.92);color:#fff;border:1px solid rgba(255,255,255,.17);font:600 9px var(--am-mono);letter-spacing:.12em;animation:cuePulse 1.35s ease-in-out infinite;box-shadow:0 12px 28px rgba(0,0,0,.22)}.unmute-cue i{display:block;font-style:normal;font-size:18px;color:var(--am-orange);animation:arrowNudge .85s ease-in-out infinite}.nfc-unmute{border:0;background:var(--am-orange);color:#0a111a;min-width:122px;height:44px;padding:0 14px;font:800 10px var(--am-mono);letter-spacing:.08em;cursor:pointer;box-shadow:0 12px 25px rgba(255,121,0,.24)}.nfc-unmute:hover{transform:translateY(-2px)}.nfc-unmute.is-on{background:#fff;color:var(--am-navy)}.nfc-unmute-wrap.sound-on .unmute-cue{opacity:0;pointer-events:none;animation:none;transform:translateX(8px)}
+@keyframes cuePulse{50%{transform:translateX(-5px);box-shadow:0 14px 34px rgba(0,0,0,.3)}}@keyframes arrowNudge{50%{transform:translateX(5px)}}
+.smart-audience-grid{display:grid;grid-template-columns:1fr 1fr;margin-top:34px;border-top:1px solid var(--am-line);border-left:1px solid var(--am-line)}.smart-audience-card{padding:30px;border-right:1px solid var(--am-line);border-bottom:1px solid var(--am-line);background:#fff;min-height:285px}.smart-audience-card .aud-code{font:600 10px var(--am-mono);letter-spacing:.13em;color:var(--am-blue)}.smart-audience-card h3{font-size:26px;margin:32px 0 11px}.smart-audience-card p{font-size:13px;line-height:1.7;color:#66778c}.smart-audience-card ul{list-style:none;padding:0;margin:20px 0 0;display:grid;gap:8px}.smart-audience-card li{font:500 10px var(--am-mono);color:#465a72}.smart-audience-card li::before{content:"↳ ";color:var(--am-orange)}
+.smart-pricing{display:grid;grid-template-columns:1fr 1fr 1.35fr;margin-top:0;border-left:1px solid var(--am-line)}.price-block{padding:26px 30px;border-right:1px solid var(--am-line);border-bottom:1px solid var(--am-line);background:#f9fcff}.price-block small{font:600 9px var(--am-mono);letter-spacing:.12em;color:#778a9f}.price-block strong{display:block;font-size:30px;letter-spacing:-.04em;margin:12px 0 4px}.price-block span{font-size:12px;color:#697a8e}.price-note{padding:26px 30px;border-right:1px solid var(--am-line);border-bottom:1px solid var(--am-line);background:var(--am-navy);color:#fff}.price-note b{display:block;font:600 9px var(--am-mono);letter-spacing:.12em;color:#8ea8c5;margin-bottom:12px}.price-note p{margin:0;color:#c1cee0;font-size:12px;line-height:1.65}
+
+/* ---------- Premium global footer ---------- */
+.exp-footer{background:var(--am-navy);color:#fff;border-top:0;padding:0!important}.exp-footer-v3{display:grid;grid-template-columns:1.25fr .7fr .9fr .95fr;border-bottom:1px solid #183754}.footer-v3-col{padding:42px 34px;border-right:1px solid #183754;min-height:275px}.footer-v3-col:last-child{border-right:0}.footer-v3-brand img{width:210px;height:66px;object-fit:contain;object-position:left center;background:#fff;padding:6px}.footer-v3-brand h3{font-size:23px;margin:26px 0 10px}.footer-v3-brand p{font-size:12px;line-height:1.7;color:#93a9c2;max-width:380px}.footer-v3-title{font:600 9px var(--am-mono);letter-spacing:.15em;color:#6f8daa;margin-bottom:24px}.footer-v3-links{display:grid;gap:13px}.footer-v3-links a,.footer-v3-links span{color:#dce8f5;text-decoration:none;font:500 11px var(--am-mono)}.footer-v3-links a:hover{color:var(--am-orange)}.footer-v3-contact a{display:block;color:#fff;text-decoration:none;margin:8px 0;font-size:12px}.footer-v3-demo{display:inline-flex!important;margin-top:18px!important;padding:12px 14px;background:var(--am-orange);color:#07111d!important;font-weight:800!important}.exp-footer-bottom{padding:19px 34px!important;display:flex!important;justify-content:space-between;gap:20px;border:0!important;font:500 9px var(--am-mono);letter-spacing:.08em;color:#6f8aa6}.exp-footer-bottom span:last-child{color:#99b3ce}
+
+@media (max-width:900px){
+  .business-flight-rail{height:290px}.flight-scene-label{left:16px;top:18px;max-width:170px}.flight-after .flight-scene-label{right:16px}.flight-scene-label span{font-size:10px}.flight-divider::before{top:78px;font-size:7px;padding:7px 8px}.flight-plane{width:60px;height:60px}.flight-plane svg{width:58px;height:58px}
+  .smart-card-spotlight{padding:56px 24px}.nfc-video-layout{grid-template-columns:1fr}.nfc-video-shell,.nfc-video-shell video{min-height:260px}.nfc-video-meta{padding:26px}.smart-audience-grid,.smart-pricing{grid-template-columns:1fr}.nfc-unmute-wrap{right:10px;bottom:52px;gap:7px}.unmute-cue{font-size:8px;padding:8px}.nfc-unmute{min-width:100px;height:40px;font-size:9px}
+  .exp-footer-v3{grid-template-columns:1fr 1fr}.footer-v3-col{min-height:auto}.footer-v3-col:nth-child(2){border-right:0}
+}
+@media (max-width:600px){
+  .business-flight-rail{height:265px}.flight-before,.flight-after{bottom:38px}.flight-label-strip{height:38px;padding:0 12px;font-size:7px}.flight-scene-label span{display:none}.flight-divider{bottom:38px}.sun-orb{width:42px;height:42px;top:86px}.storm-cloud{transform:scale(.62)}.storm-cloud.c2{transform:scale(.5)}
+  .smart-card-spotlight{padding:42px 14px}.nfc-video-shell,.nfc-video-shell video{min-height:210px}.nfc-unmute-wrap{bottom:48px;right:8px;flex-direction:column;align-items:flex-end}.unmute-cue{order:1}.nfc-unmute{order:2}.smart-audience-card{padding:24px;min-height:auto}.price-block,.price-note{padding:22px}
+  .exp-footer-v3{grid-template-columns:1fr}.footer-v3-col{border-right:0;border-bottom:1px solid #183754;padding:30px 22px}.exp-footer-bottom{padding:17px 22px!important;flex-direction:column}.footer-v3-brand img{width:180px}
+}
+@media (prefers-reduced-motion:reduce){.flight-plane,.rain-field,.sun-ray,.unmute-cue,.unmute-cue i{animation:none!important}}
