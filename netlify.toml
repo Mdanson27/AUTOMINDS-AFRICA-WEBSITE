@@ -1,6 +1,6 @@
 [build]
-  publish = "."
-  command = "echo 'Static AutoMinds Africa site: no build step required'"
+  publish = "build"
+  command = "rm -rf build && mkdir -p build && cp -a *.html *.css *.js *.png *.mp4 build/"
 
 [build.environment]
   NODE_VERSION = "20"
