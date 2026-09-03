@@ -1,4 +1,4 @@
-/* AutoMinds Africa — V6 mobile stability and flight containment */
+/* AutoMinds Africa — V7 mobile stability, transition safety and weather containment */
 
 /* Keep the weather story physically inside its own rail on every breakpoint. */
 .business-flight-rail{
@@ -6,6 +6,7 @@
   overflow:hidden!important;
   isolation:isolate!important;
   contain:layout paint!important;
+  z-index:0!important;
 }
 .business-flight-rail .flight-half{
   position:absolute!important;
@@ -15,6 +16,7 @@
   overflow:hidden!important;
   clip-path:inset(0)!important;
   contain:layout paint!important;
+  z-index:1!important;
 }
 .business-flight-rail .flight-before{left:0!important;right:auto!important}
 .business-flight-rail .flight-after{right:0!important;left:auto!important}
@@ -29,21 +31,40 @@
   max-width:100%!important;
   overflow:hidden!important;
   clip-path:inset(0)!important;
-  contain:paint!important;
+  contain:strict!important;
   z-index:2!important;
   pointer-events:none!important;
+  transform:translateZ(0)!important;
 }
 .business-flight-rail .flight-before .rain-field::before,
 .business-flight-rail .flight-before .rain-field::after{
   pointer-events:none!important;
+  max-width:none!important;
+}
+.business-flight-rail .flight-divider{z-index:7!important}
+.business-flight-rail .flight-plane{z-index:9!important}
+.business-flight-rail .flight-label-strip{z-index:10!important}
+
+/* During page navigation, weather is explicitly paused/hidden. The opaque curtain owns the viewport. */
+.page-transitioning .business-flight-rail .rain-field,
+.page-transitioning .business-flight-rail .rain-field::before,
+.page-transitioning .business-flight-rail .rain-field::after{
+  visibility:hidden!important;
+  animation:none!important;
 }
 
-/* The transition layer must never inherit any weather visuals. */
+/* The loader/curtain are always completely opaque and above every product animation. */
 #page-curtain,#experience-loader{
   overflow:hidden!important;
-  background-color:var(--am-navy)!important;
+  background:#06182d!important;
+  opacity:1!important;
+  isolation:isolate!important;
+  z-index:2147483000!important;
 }
+#experience-loader{z-index:2147483001!important}
+#page-curtain::before,#page-curtain::after,#experience-loader::before,#experience-loader::after{pointer-events:none!important}
 #page-curtain .curtain-core,#experience-loader .loader-core{position:relative!important;z-index:3!important}
+body.am-home-loading{overflow:hidden!important;touch-action:none!important}
 
 @media(max-width:680px){
   .business-flight-rail{
