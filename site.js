@@ -18,6 +18,16 @@
 
   const logo = `${root}autominds-africa-logo.png`;
 
+  const developerMessage = "Looking for something here? You seem to be a developer. AutoMinds Africa is looking for people like you. Reach out to automindsafrica@gmail.com or call +256 783 025 667.";
+  const developerNote = document.createElement("aside");
+  developerNote.id = "autominds-developer-message";
+  developerNote.hidden = true;
+  developerNote.dataset.purpose = "developer-recruitment";
+  developerNote.textContent = developerMessage;
+  body.prepend(developerNote);
+  console.info("%cAutoMinds Africa", "font:800 18px/1.4 system-ui;color:#145cff;");
+  console.info("%c" + developerMessage, "font:600 12px/1.6 system-ui;color:#ff7900;");
+
   function loadStylesheet(href){
     return new Promise(resolve => {
       let link = [...document.querySelectorAll('link[rel="stylesheet"]')]
@@ -51,6 +61,14 @@
     return `<div id="page-curtain" aria-hidden="true"><div class="curtain-core"><div class="curtain-kicker">AUTOMINDS AFRICA / NAVIGATING</div><div class="curtain-title">OPENING <span>${page.toUpperCase()}</span></div></div></div>`;
   }
   body.insertAdjacentHTML("afterbegin", curtainMarkup());
+
+  function setCurtainLabel(label){
+    const title = document.querySelector("#page-curtain .curtain-title");
+    if(!title) return;
+    const span = document.createElement("span");
+    span.textContent = String(label || "HOME").toUpperCase();
+    title.replaceChildren(document.createTextNode("OPENING "), span);
+  }
 
   function resolvePageLabel(href, link){
     try {
@@ -108,7 +126,7 @@
     body.classList.add("am-home-loading");
 
     setTimeout(() => {
-      if(msg) msg.innerHTML = `CHANGE <span>IS HERE.</span>`;
+      if(msg){ msg.replaceChildren(document.createTextNode("CHANGE ")); const accent = document.createElement("span"); accent.textContent = "IS HERE."; msg.append(accent); }
     }, 2500);
 
     const minFiveSeconds = new Promise(resolve => {
@@ -140,8 +158,7 @@
     sessionStorage.removeItem("am-arriving");
     body.classList.add("page-transitioning");
     const curtain = document.querySelector("#page-curtain");
-    const title = curtain?.querySelector(".curtain-title");
-    if(title) title.innerHTML = `OPENING <span>${page.toUpperCase()}</span>`;
+    setCurtainLabel(page);
     curtain?.classList.add("show");
     setTimeout(() => {
       curtain?.classList.remove("show");
@@ -166,8 +183,7 @@
     nav?.classList.remove("open");
     menu?.setAttribute("aria-expanded", "false");
     const curtain = document.querySelector("#page-curtain");
-    const title = curtain?.querySelector(".curtain-title");
-    if(title) title.innerHTML = `OPENING <span>${label}</span>`;
+    setCurtainLabel(label);
     curtain?.classList.remove("leave");
     curtain?.classList.add("show");
     sessionStorage.setItem("am-arriving", label);
@@ -264,6 +280,28 @@
       <div class="exp-footer-bottom"><span>© 2026 AutoMinds Africa · Kampala, Uganda</span><span>WORK SMARTER. NOT HARDER.</span></div>`;
   }
   upgradeFooter();
+
+  function setupHomeNfcVideo(){
+    const video = document.querySelector(".home-nfc-media video");
+    const button = document.querySelector("[data-home-unmute]");
+    const wrap = document.querySelector(".home-unmute-wrap");
+    if(!video || !button || !wrap) return;
+    const sync = () => {
+      const soundOn = !video.muted && video.volume > 0;
+      wrap.classList.toggle("sound-on", soundOn);
+      button.setAttribute("aria-pressed", String(soundOn));
+      button.textContent = soundOn ? "🔇 MUTE" : "🔊 UNMUTE";
+    };
+    button.addEventListener("click", async () => {
+      video.muted = !video.muted;
+      if(!video.muted && video.volume === 0) video.volume = 1;
+      try { await video.play(); } catch (_) {}
+      sync();
+    });
+    video.addEventListener("volumechange", sync);
+    sync();
+  }
+  setupHomeNfcVideo();
 
   // Dedicated Smart Digital Business Cards feature experience on Projects.
   function insertSmartCardSpotlight(){
