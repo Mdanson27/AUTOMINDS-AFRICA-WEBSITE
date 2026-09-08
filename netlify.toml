@@ -1,6 +1,14 @@
 [build]
   publish = "build"
-  command = "rm -rf build && mkdir -p build && cp -a *.html *.css *.js *.png *.mp4 build/"
+  command = """
+rm -rf build
+mkdir -p build/.well-known
+cp -a index.html systems.html projects.html team.html contact.html build/
+cp -a v2.css v3.css v4.css mobile-v5.css mobile-v6.css project-previews.css build/
+cp -a site.js contact-compose.js build/
+cp -a autominds-africa-logo.png airplane-take-off-svgrepo-com.png "AMF-NFC LANDSCAPE (1).mp4" build/
+cp -a .well-known/security.txt build/.well-known/security.txt
+"""
 
 [build.environment]
   NODE_VERSION = "20"
@@ -11,6 +19,10 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()"
+    Cross-Origin-Opener-Policy = "same-origin-allow-popups"
+    Strict-Transport-Security = "max-age=31536000"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self'; worker-src 'none'; upgrade-insecure-requests; frame-ancestors 'self'"
 
 [[redirects]]
   from = "/home"
