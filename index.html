@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="theme-color" content="#06182d" />
+  <meta name="theme-color" content="#06182d" /><meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self'; worker-src 'none'; upgrade-insecure-requests" /><link rel="icon" type="image/png" href="autominds-africa-logo.png" /><link rel="shortcut icon" type="image/png" href="autominds-africa-logo.png" /><link rel="apple-touch-icon" href="autominds-africa-logo.png" /><meta name="application-name" content="AutoMinds Africa" />
   <meta name="description" content="AutoMinds Africa builds AI agents, Smart Digital Solutions, Smart Digital Business Cards, dashboards, web apps and connected business operating systems from Kampala, Uganda." />
   <title>AutoMinds Africa — Work Smarter. Not Harder.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -11,7 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="v2.css" />
   <link rel="stylesheet" href="v4.css" />
-  <link rel="stylesheet" href="mobile-v5.css" />
+  <link rel="stylesheet" href="mobile-v5.css" /><link rel="stylesheet" href="v3.css" /><link rel="stylesheet" href="mobile-v6.css" />
 </head>
 <body class="exp-body" data-page="Home">
   <div class="exp-frame">
@@ -88,7 +88,7 @@
               <span class="home-video-badge">NFC + QR / LIVE PRODUCT VIDEO</span>
               <div class="home-unmute-wrap">
                 <span class="home-unmute-cue">VIDEO IS PLAYING MUTED</span>
-                <button class="home-unmute-btn" type="button" onclick="const w=this.closest('.home-unmute-wrap');const v=this.closest('.home-nfc-media').querySelector('video');v.muted=!v.muted;if(!v.muted&&v.volume===0)v.volume=1;w.classList.toggle('sound-on',!v.muted);this.textContent=v.muted?'🔊 UNMUTE':'🔇 MUTE';v.play().catch(()=>{});">🔊 UNMUTE</button>
+                <button class="home-unmute-btn" type="button" data-home-unmute aria-pressed="false">🔊 UNMUTE</button>
               </div>
             </div>
             <div><span class="page-code">01 / DIGITAL IDENTITY</span><h3>Smart Digital Business Cards</h3><p>Our flagship NFC + QR system for individuals and businesses, with editable profiles, personal or multi-profile dashboards, profile switching and flexible feature expansion.</p><p><a href="https://autominds-social-links.netlify.app/" target="_blank" rel="noopener">VIEW LIVE SMART PROFILE DEMO ↗</a></p></div>
