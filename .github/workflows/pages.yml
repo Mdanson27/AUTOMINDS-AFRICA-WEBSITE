@@ -31,7 +31,7 @@ jobs:
           cp -a index.html systems.html projects.html team.html contact.html build/
           cp -a v2.css v3.css v4.css mobile-v5.css mobile-v6.css project-previews.css build/
           cp -a clean-url.js site.js contact-compose.js build/
-          cp -a autominds-africa-logo.png airplane-take-off-svgrepo-com.png "AMF-NFC LANDSCAPE (1).mp4" build/
+          cp -a autominds-africa-logo.png favicon.ico autominds-favicon-48.png autominds-favicon-192.png autominds-favicon-512.png apple-touch-icon.png site.webmanifest airplane-take-off-svgrepo-com.png "AMF-NFC LANDSCAPE (1).mp4" build/
           cp -a .well-known/security.txt build/.well-known/security.txt
 
       - name: Configure GitHub Pages
