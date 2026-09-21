@@ -1,0 +1,45 @@
+name: Update contribution neural grid
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 2 * * *"
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/generate-neural-grid.mjs"
+      - ".github/workflows/update-neural-grid.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out profile repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Generate neural contribution grid
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PROFILE_LOGIN: Mdanson27
+        run: node scripts/generate-neural-grid.mjs
+
+      - name: Commit updated grid
+        run: |
+          if git diff --quiet -- assets/neural-contributions.svg; then
+            echo "No contribution-grid changes."
+            exit 0
+          fi
+          git config user.name "profile-grid-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/neural-contributions.svg
+          git commit -m "chore: refresh contribution neural grid"
+          git push
