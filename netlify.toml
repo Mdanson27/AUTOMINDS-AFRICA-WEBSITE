@@ -25,6 +25,14 @@ cp -a .well-known/security.txt build/.well-known/security.txt
     Strict-Transport-Security = "max-age=31536000"
     Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self'; worker-src 'none'; upgrade-insecure-requests; frame-ancestors 'self'"
 
+
+# Keep legacy browser/favicon requests on the official AutoMinds Africa mark.
+[[redirects]]
+  from = "/favicon.ico"
+  to = "/autominds-official-favicon-48.png"
+  status = 301
+  force = true
+
 # Current clean routes
 [[redirects]]
   from = "/home"
