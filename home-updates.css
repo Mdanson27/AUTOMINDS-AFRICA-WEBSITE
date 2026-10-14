@@ -1,0 +1,178 @@
+/* AutoMinds Africa — Home partner rail + latest update */
+
+/* Simple partner strip directly below the business-flight animation. */
+.partners-strip{
+  padding:42px 48px 30px;
+  border-bottom:1px solid var(--am-line);
+  background:#fff;
+  overflow:hidden;
+}
+.partners-strip-head{
+  display:flex;
+  align-items:end;
+  justify-content:space-between;
+  gap:30px;
+  margin-bottom:22px;
+}
+.partners-strip-head .exp-eyebrow{margin:0 0 8px}
+.partners-strip-head h2{
+  margin:0;
+  max-width:850px;
+  font-size:clamp(26px,3vw,42px);
+  line-height:1.03;
+  letter-spacing:-.045em;
+}
+.partners-logo-stage{
+  position:relative;
+  height:132px;
+  overflow:hidden;
+  border-top:1px solid var(--am-line);
+  border-bottom:1px solid var(--am-line);
+  background:
+    linear-gradient(90deg,rgba(20,92,255,.025),transparent 26%,transparent 74%,rgba(255,121,0,.03)),
+    #fff;
+}
+.partners-logo-stage::before{
+  content:"PARTNERS / 01";
+  position:absolute;
+  left:18px;
+  top:14px;
+  z-index:2;
+  font:600 8px var(--am-mono);
+  letter-spacing:.14em;
+  color:#8798aa;
+}
+.partner-logo-mover{
+  position:absolute;
+  top:50%;
+  left:-300px;
+  width:260px;
+  height:82px;
+  transform:translateY(-50%);
+  display:grid;
+  place-items:center;
+  animation:sandboxPartnerPass 10s linear infinite;
+  will-change:left;
+}
+.partner-logo-mover img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  object-position:center;
+}
+@keyframes sandboxPartnerPass{
+  0%{left:-300px}
+  100%{left:calc(100% + 40px)}
+}
+
+/* Cybersecurity service card stays visually distinct without needing partners.css. */
+.cyber-record{
+  background:linear-gradient(155deg,#06182d 0%,#0b3155 100%)!important;
+  color:#fff!important;
+  position:relative;
+  overflow:hidden;
+}
+.cyber-record::after{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  right:-72px;
+  top:-75px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,121,0,.025);
+}
+.cyber-record .num{color:#89add3!important}
+.cyber-record h3{color:#fff!important;position:relative;z-index:1}
+.cyber-record p{color:#bdd0e2!important;position:relative;z-index:1}
+.cyber-record .tag{color:#ffab55!important;position:relative;z-index:1}
+
+/* Latest update / poster feature. */
+.latest-update{
+  display:grid;
+  grid-template-columns:minmax(0,.74fr) minmax(380px,1.26fr);
+  min-height:560px;
+  border-top:1px solid var(--am-line);
+  border-bottom:1px solid var(--am-line);
+  background:#f8fbff;
+}
+.latest-update-copy{
+  padding:56px 48px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  border-right:1px solid var(--am-line);
+}
+.latest-update-copy .exp-eyebrow{margin-bottom:12px}
+.update-badge{
+  width:max-content;
+  max-width:100%;
+  display:inline-flex;
+  padding:8px 10px;
+  margin-bottom:20px;
+  background:#06182d;
+  color:#fff;
+  font:600 9px var(--am-mono);
+  letter-spacing:.11em;
+}
+.latest-update-copy h2{
+  margin:0;
+  font-size:clamp(38px,5vw,70px);
+  line-height:.94;
+  letter-spacing:-.06em;
+  color:var(--am-ink);
+}
+.latest-update-copy>p:not(.exp-eyebrow){
+  max-width:560px;
+  margin:20px 0 28px;
+  color:#687a90;
+  font-size:14px;
+  line-height:1.7;
+}
+.latest-update-copy .exp-cta{width:max-content;min-width:220px}
+.latest-update-media{
+  min-height:560px;
+  background:#fff;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+}
+.latest-update-media img{
+  display:block;
+  width:100%;
+  height:100%;
+  max-height:720px;
+  object-fit:contain;
+  object-position:center;
+  background:#fff;
+}
+
+@media (max-width:900px){
+  .partners-strip{padding:34px 24px 26px}
+  .partners-strip-head{display:block}
+  .partner-logo-mover{width:225px;height:72px}
+  .latest-update{grid-template-columns:1fr}
+  .latest-update-copy{padding:42px 24px;border-right:0;border-bottom:1px solid var(--am-line)}
+  .latest-update-media{min-height:420px}
+}
+
+@media (max-width:600px){
+  .partners-strip{padding:28px 14px 22px}
+  .partners-strip-head h2{font-size:28px}
+  .partners-logo-stage{height:108px}
+  .partner-logo-mover{width:190px;height:62px;left:-220px;animation-duration:8s}
+  @keyframes sandboxPartnerPass{
+    0%{left:-220px}
+    100%{left:calc(100% + 25px)}
+  }
+  .latest-update-copy{padding:34px 18px}
+  .latest-update-copy h2{font-size:42px}
+  .latest-update-media{min-height:300px}
+  .latest-update-media img{max-height:520px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .partner-logo-mover{animation:none;left:50%;transform:translate(-50%,-50%)}
+}
