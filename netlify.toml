@@ -4,9 +4,10 @@
 rm -rf build
 mkdir -p build/.well-known
 cp -a index.html systems.html projects.html team.html contact.html build/
-cp -a v2.css v3.css v4.css mobile-v5.css mobile-v6.css project-previews.css build/
+cp -a v2.css v3.css v4.css mobile-v5.css mobile-v6.css project-previews.css home-updates.css build/
 cp -a clean-url.js site.js contact-compose.js legacy-route.js build/
 cp -a autominds-africa-logo.png autominds-official-favicon-48.png site.webmanifest airplane-take-off-svgrepo-com.png "AMF-NFC LANDSCAPE (1).mp4" build/
+cp -a logo.jpg "Sanbox-automindsafrica poster.jpeg" build/
 cp -a 404.html robots.txt sitemap.xml build/
 cp -a .well-known/security.txt build/.well-known/security.txt
 """
@@ -24,7 +25,6 @@ cp -a .well-known/security.txt build/.well-known/security.txt
     Cross-Origin-Opener-Policy = "same-origin-allow-popups"
     Strict-Transport-Security = "max-age=31536000"
     Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self'; script-src-attr 'none'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data:; media-src 'self'; connect-src 'self'; frame-src 'none'; form-action 'self'; worker-src 'none'; upgrade-insecure-requests; frame-ancestors 'self'"
-
 
 # Keep legacy browser/favicon requests on the official AutoMinds Africa mark.
 [[redirects]]
