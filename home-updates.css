@@ -2,41 +2,37 @@
 
 /* Simple partner strip directly below the business-flight animation. */
 .partners-strip{
-  padding:42px 48px 30px;
+  padding:30px 48px 26px;
   border-bottom:1px solid var(--am-line);
   background:#fff;
   overflow:hidden;
 }
 .partners-strip-head{
-  display:flex;
-  align-items:end;
-  justify-content:space-between;
-  gap:30px;
-  margin-bottom:22px;
+  display:block;
+  margin-bottom:14px;
 }
-.partners-strip-head .exp-eyebrow{margin:0 0 8px}
-.partners-strip-head h2{
+.partners-strip-head .exp-eyebrow{
   margin:0;
-  max-width:850px;
-  font-size:clamp(26px,3vw,42px);
-  line-height:1.03;
-  letter-spacing:-.045em;
+  font-size:12px;
+  letter-spacing:.18em;
+  color:var(--am-ink);
 }
+.partners-strip-head h2{display:none}
 .partners-logo-stage{
   position:relative;
-  height:132px;
+  height:118px;
   overflow:hidden;
   border-top:1px solid var(--am-line);
   border-bottom:1px solid var(--am-line);
   background:
-    linear-gradient(90deg,rgba(20,92,255,.025),transparent 26%,transparent 74%,rgba(255,121,0,.03)),
+    linear-gradient(90deg,rgba(20,92,255,.02),transparent 28%,transparent 72%,rgba(255,121,0,.025)),
     #fff;
 }
 .partners-logo-stage::before{
-  content:"PARTNERS / 01";
+  content:"PARTNERS";
   position:absolute;
   left:18px;
-  top:14px;
+  top:12px;
   z-index:2;
   font:600 8px var(--am-mono);
   letter-spacing:.14em;
@@ -46,12 +42,12 @@
   position:absolute;
   top:50%;
   left:-300px;
-  width:260px;
-  height:82px;
+  width:250px;
+  height:76px;
   transform:translateY(-50%);
   display:grid;
   place-items:center;
-  animation:sandboxPartnerPass 10s linear infinite;
+  animation:sandboxPartnerPass 9s linear infinite;
   will-change:left;
 }
 .partner-logo-mover img{
@@ -150,19 +146,17 @@
 }
 
 @media (max-width:900px){
-  .partners-strip{padding:34px 24px 26px}
-  .partners-strip-head{display:block}
-  .partner-logo-mover{width:225px;height:72px}
+  .partners-strip{padding:26px 24px 22px}
+  .partner-logo-mover{width:225px;height:68px}
   .latest-update{grid-template-columns:1fr}
   .latest-update-copy{padding:42px 24px;border-right:0;border-bottom:1px solid var(--am-line)}
   .latest-update-media{min-height:420px}
 }
 
 @media (max-width:600px){
-  .partners-strip{padding:28px 14px 22px}
-  .partners-strip-head h2{font-size:28px}
-  .partners-logo-stage{height:108px}
-  .partner-logo-mover{width:190px;height:62px;left:-220px;animation-duration:8s}
+  .partners-strip{padding:22px 14px 18px}
+  .partners-logo-stage{height:98px}
+  .partner-logo-mover{width:185px;height:58px;left:-220px;animation-duration:7.5s}
   @keyframes sandboxPartnerPass{
     0%{left:-220px}
     100%{left:calc(100% + 25px)}
