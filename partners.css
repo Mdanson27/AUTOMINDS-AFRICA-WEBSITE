@@ -1,0 +1,152 @@
+/* AutoMinds Africa — Partners + Cybersecurity sector */
+
+.partner-section{
+  padding:72px 48px;
+  border-bottom:1px solid var(--am-line);
+  background:linear-gradient(180deg,#fff 0%,#f8fbff 100%);
+  overflow:hidden;
+}
+
+.partner-section .section-head2{margin-bottom:30px}
+
+.partner-note{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-top:16px;
+  font:600 9px var(--am-mono);
+  letter-spacing:.1em;
+  color:#647991;
+}
+.partner-note i{
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  background:var(--am-orange);
+  box-shadow:0 0 0 5px rgba(255,121,0,.09);
+}
+
+.partner-marquee{
+  position:relative;
+  overflow:hidden;
+  border-top:1px solid var(--am-line);
+  border-bottom:1px solid var(--am-line);
+  background:#fff;
+}
+.partner-marquee::before,
+.partner-marquee::after{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:100px;
+  z-index:5;
+  pointer-events:none;
+}
+.partner-marquee::before{left:0;background:linear-gradient(90deg,#fff,rgba(255,255,255,0))}
+.partner-marquee::after{right:0;background:linear-gradient(270deg,#fff,rgba(255,255,255,0))}
+
+.partner-track{
+  display:flex;
+  width:max-content;
+  animation:partnerFlow 24s linear infinite;
+  will-change:transform;
+}
+.partner-marquee:hover .partner-track{animation-play-state:paused}
+
+.partner-item{
+  width:410px;
+  min-height:190px;
+  padding:26px 30px;
+  display:grid;
+  grid-template-columns:155px 1fr;
+  align-items:center;
+  gap:26px;
+  border-right:1px solid var(--am-line);
+  background:#fff;
+}
+.partner-logo-shell{
+  height:108px;
+  display:grid;
+  place-items:center;
+  padding:12px;
+  border:1px solid var(--am-line);
+  background:#f8fbff;
+}
+.partner-logo-shell img{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+}
+.partner-meta small{
+  display:block;
+  margin-bottom:9px;
+  font:600 9px var(--am-mono);
+  letter-spacing:.13em;
+  color:var(--am-orange);
+}
+.partner-meta h3{
+  margin:0 0 8px;
+  font-size:22px;
+  letter-spacing:-.035em;
+  color:var(--am-ink);
+}
+.partner-meta p{
+  margin:0;
+  font-size:11px;
+  line-height:1.6;
+  color:#687b91;
+}
+
+.cyber-record{
+  background:linear-gradient(155deg,#06182d 0%,#0b3155 100%)!important;
+  color:#fff!important;
+  position:relative;
+  overflow:hidden;
+}
+.cyber-record::after{
+  content:"";
+  position:absolute;
+  width:190px;
+  height:190px;
+  right:-72px;
+  top:-75px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:50%;
+  box-shadow:0 0 0 28px rgba(255,255,255,.025),0 0 0 58px rgba(255,121,0,.025);
+}
+.cyber-record .num{color:#89add3!important}
+.cyber-record h3{color:#fff!important;position:relative;z-index:1}
+.cyber-record p{color:#bdd0e2!important;position:relative;z-index:1}
+.cyber-record .tag{color:#ffab55!important;position:relative;z-index:1}
+
+@keyframes partnerFlow{
+  from{transform:translateX(0)}
+  to{transform:translateX(-50%)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .partner-track{animation:none}
+}
+
+@media (max-width:900px){
+  .partner-section{padding:56px 24px}
+  .partner-item{width:360px;grid-template-columns:135px 1fr;padding:22px}
+  .partner-logo-shell{height:94px}
+}
+
+@media (max-width:600px){
+  .partner-section{padding:42px 14px}
+  .partner-marquee::before,.partner-marquee::after{width:42px}
+  .partner-item{
+    width:300px;
+    min-height:160px;
+    grid-template-columns:100px 1fr;
+    gap:16px;
+    padding:18px;
+  }
+  .partner-logo-shell{height:78px;padding:8px}
+  .partner-meta h3{font-size:18px}
+  .partner-meta p{font-size:10px}
+}
